@@ -1,0 +1,5 @@
+selenium_script.py
+env
+__pycache__
+.env
+valid_proxies.txt

@@ -1,0 +1,72 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Twitter Trends Scraper</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      #results {
+        margin-top: 2rem;
+      }
+      .trend {
+        margin: 0.5rem 0;
+      }
+      #loading {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Twitter Trends Scraper</h1>
+    <button onclick="runScraper()">Click here to run the script</button>
+    <div id="loading">Loading...</div>
+    <div id="results"></div>
+
+    <script>
+      async function runScraper() {
+        const loading = document.getElementById("loading");
+        const results = document.getElementById("results");
+
+        loading.style.display = "block";
+        results.innerHTML = "";
+
+        try {
+          const response = await fetch("/scrape");
+          const data = await response.json();
+          console.log(data);
+
+          const html = `
+                    <h2>These are the most happening topics as on ${
+                      data.datetime
+                    }</h2>
+                    <div class="trend">- ${data.nameoftrend1}</div>
+                    <div class="trend">- ${data.nameoftrend2}</div>
+                    <div class="trend">- ${data.nameoftrend3}</div>
+                    <div class="trend">- ${data.nameoftrend4}</div>
+                    <div class="trend">- ${data.nameoftrend5}</div>
+                    <p>The IP address used for this query was ${
+                      data.ip_address
+                    }</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+
+          results.innerHTML = html;
+        } catch (error) {
+          results.innerHTML = "Error fetching trends";
+        } finally {
+          loading.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
