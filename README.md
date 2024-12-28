@@ -29,7 +29,7 @@ Before running the application, ensure that you have the following installed:
    ```
 
 ## Setting Up Web Proxy:
-To use a proxy with Selenium: Create a file valid_proxies.txt and add proxies inside that
+To use a proxy with Selenium, Create a file valid_proxies.txt and add proxies inside that with each proxy in different line
 
 
 ## Running the Application:
